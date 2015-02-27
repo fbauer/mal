@@ -12,7 +12,7 @@ PYTHON = python
 
 IMPLS = bash c clojure coffee cs forth go haskell java js lua make mal \
 	ocaml matlab miniMAL perl php ps python r racket ruby rust \
-	scala vb
+	scala vb mypy
 
 step0 = step0_repl
 step1 = step1_read_print
@@ -70,6 +70,7 @@ perl_STEP_TO_PROG =    perl/$($(1)).pl
 php_STEP_TO_PROG =     php/$($(1)).php
 ps_STEP_TO_PROG =      ps/$($(1)).ps
 python_STEP_TO_PROG =  python/$($(1)).py
+mypy_STEP_TO_PROG =  mypy/$($(1)).py
 r_STEP_TO_PROG =       r/$($(1)).r
 racket_STEP_TO_PROG =  racket/$($(1)).rkt
 ruby_STEP_TO_PROG =    ruby/$($(1)).rb
@@ -103,6 +104,7 @@ perl_RUNSTEP =    perl ../$(2) --raw $(3)
 php_RUNSTEP =     php ../$(2) $(3)
 ps_RUNSTEP =      $(4)gs -q -I./ -dNODISPLAY -- ../$(2) $(3)$(4)
 python_RUNSTEP =  $(PYTHON) ../$(2) $(3)
+mypy_RUNSTEP =  $(PYTHON) ../$(2) $(3)
 r_RUNSTEP =       Rscript ../$(2) $(3)
 racket_RUNSTEP =  ../$(2) $(3)
 ruby_RUNSTEP =    ruby ../$(2) $(3)
