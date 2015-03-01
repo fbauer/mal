@@ -4,7 +4,7 @@
 
 MAL_IMPL = js
 
-PYTHON = python
+PYTHON = python3
 
 #
 # Settings
