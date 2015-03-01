@@ -22,7 +22,7 @@ SYNTAX_TABLE = (
     ("t_nil", r"nil", constant(None), constant("nil"), type(None)),
     ("t_bool", r"true|false", to_bool, from_bool, type(True)),
     ("t_integer", r"[0-9]+", int, str, type(1)),
-    ("t_other", r"""~@""", identity, identity, str), 
+    ("t_splice_unquote", r"""~@""", constant("splice-unquote"), str, str), 
     ("t_delim", r"[\[\]{}()'`~^@]", identity, identity, str),
     ("t_string", r'''"(?:\\.|[^\\"])*"''', identity, identity, str),
     ("t_symbol", r"""[^\s\[\]{}('"`,;)]*""", identity, identity, str),
