@@ -23,7 +23,11 @@ SYNTAX_TABLE = (
     ("t_bool", r"true|false", to_bool, from_bool, type(True)),
     ("t_integer", r"[0-9]+", int, str, type(1)),
     ("t_splice_unquote", r"""~@""", constant("splice-unquote"), str, str), 
-    ("t_delim", r"[\[\]{}()'`~^@]", identity, identity, str),
+    ("t_quote", r"""'""", constant("quote"), str, str), 
+    ("t_unquote", r"""~""", constant("unquote"), str, str), 
+    ("t_quasiquote", r"""`""", constant("quasiquote"), str, str), 
+    ("t_deref", r"""@""", constant("deref"), str, str), 
+    ("t_delim", r"[\[\]{}()^]", identity, identity, str),
     ("t_string", r'''"(?:\\.|[^\\"])*"''', identity, identity, str),
     ("t_symbol", r"""[^\s\[\]{}('"`,;)]*""", identity, identity, str),
 )
