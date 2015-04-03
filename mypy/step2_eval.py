@@ -24,8 +24,7 @@ def EVAL(ast, env):
         args = [EVAL(arg, env) for arg in ast[1:]]
         return fn(args)
     elif ast and type(ast) == dict:
-        for k, v in ast.items():
-            ast[k] = EVAL(v, env)
+        return dict((EVAL(k, env), EVAL(v, env)) for (k, v) in ast.items())
     elif ast and type(ast) == tuple:
         return tuple(EVAL(i, env) for i in ast)
     else:
