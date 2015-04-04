@@ -16,6 +16,13 @@ def to_bool(s):
 def from_bool(a):
     return {True: 'true', False: 'false'}[a]
 
+def to_id(s):
+    return 
+
+class symbol:
+    def __init__(self, symbol_name):
+        self.value = symbol_name
+
 SYNTAX_TABLE = (
     ("t_whitespace", r"[\s,]+", "ignore", None, str),
     ("t_comment", r";.*", "ignore", None, str),
@@ -29,7 +36,7 @@ SYNTAX_TABLE = (
     ("t_deref", r"""@""", constant("deref"), str, str), 
     ("t_delim", r"[\[\]{}()^]", identity, identity, str),
     ("t_string", r'''"(?:\\.|[^\\"])*"''', identity, identity, str),
-    ("t_symbol", r"""[^\s\[\]{}('"`,;)]*""", identity, identity, str),
+    ("t_symbol", r"""[^\s\[\]{}('"`,;)]*""", symbol, None, symbol),
 )
 
 TOKEN_RE = re.compile("|".join(r"(?P<%s>%s)" % t[0:2] for t in SYNTAX_TABLE), re.VERBOSE)
