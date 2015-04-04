@@ -21,7 +21,7 @@ def rep(*args):
 def mainloop():
     while(1):
         try:
-            line = input("mypy>>>")
+            line = input("mal-user> ")
             if line in ("",):
                 continue
             print(rep(line))
