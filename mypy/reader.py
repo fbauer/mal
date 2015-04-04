@@ -38,6 +38,8 @@ def read_form(tok, tokens):
     elif tok.lastgroup in ("t_quote", "t_splice_unquote", "t_unquote",
                            "t_quasiquote", "t_deref"):
         return reader_macro(tok, tokens)
+    elif tok.lastgroup == "t_with_meta":
+        return with_meta(tok, tokens)
     else:
         return read_atom(tok)
 
@@ -76,3 +78,9 @@ def reader_macro(the_token, tokens):
     convert = STRING_TO_ATOM_CONVERTERS[the_token.lastgroup]
     return [convert(the_token.group(0)),
             read_form(next(tokens), tokens)]
+
+def with_meta(the_token, tokens):
+    convert = STRING_TO_ATOM_CONVERTERS[the_token.lastgroup]
+    first = read_form(next(tokens), tokens)
+    second = read_form(next(tokens), tokens)
+    return [convert(the_token.group(0)), second, first]

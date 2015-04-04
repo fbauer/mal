@@ -16,9 +16,6 @@ def to_bool(s):
 def from_bool(a):
     return {True: 'true', False: 'false'}[a]
 
-def to_id(s):
-    return 
-
 class symbol:
     def __init__(self, symbol_name):
         self.value = symbol_name
@@ -42,7 +39,8 @@ SYNTAX_TABLE = (
     ("t_unquote", r"""~""", constant("unquote"), str, str), 
     ("t_quasiquote", r"""`""", constant("quasiquote"), str, str), 
     ("t_deref", r"""@""", constant("deref"), str, str), 
-    ("t_delim", r"[\[\]{}()^]", identity, identity, str),
+    ("t_with_meta", r"""\^""", constant("with-meta"), str, str), 
+    ("t_delim", r"[\[\]{}()]", identity, identity, str),
     ("t_string", r'''"(?:\\.|[^\\"])*"''', identity, identity, str),
     ("t_symbol", r"""[^\s\[\]{}('"`,;)]*""", symbol, str, symbol),
 )
