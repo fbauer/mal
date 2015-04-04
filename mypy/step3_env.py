@@ -26,12 +26,17 @@ def READ(*args):
 def EVAL(ast, environment):
     if ast and type(ast) == list:
         if ast[0] == "let*":
-            pass
+            newenv = [{}] + repl_env
+            let_bindings = ast[1]
+            for sym, val in zip(let_bindings[0::2],
+                                let_bindings[1::2]):
+                env.set(newenv, sym, EVAL(val, newenv))
+            return EVAL(ast[2], newenv)
         elif ast[0] == "def!":
             symbol = ast[1]
             value = EVAL(ast[2], environment)
-            env.set(environment, symbol.value, value)
-            return env.get(environment, symbol.value)
+            env.set(environment, symbol, value)
+            return env.get(environment, symbol)
         else:
             fn = env.get(environment, ast[0])
             args = [EVAL(arg, environment) for arg in ast[1:]]
@@ -42,7 +47,7 @@ def EVAL(ast, environment):
     elif ast and type(ast) == tuple:
         return tuple(EVAL(i, environment) for i in ast)
     elif ast and type(ast) == syntax.symbol:
-        return env.get(environment, ast.value)
+        return env.get(environment, ast)
     else:
         return ast
 

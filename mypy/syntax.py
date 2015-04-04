@@ -22,6 +22,14 @@ def to_id(s):
 class symbol:
     def __init__(self, symbol_name):
         self.value = symbol_name
+    def __str__(self):
+        return self.value
+    def __repr__(self):
+        return "symbol %s" % self.value
+    def __eq__(self, other):
+        return self.value == other
+    def __hash__(self):
+        return hash(self.value)
 
 SYNTAX_TABLE = (
     ("t_whitespace", r"[\s,]+", "ignore", None, str),
@@ -36,7 +44,7 @@ SYNTAX_TABLE = (
     ("t_deref", r"""@""", constant("deref"), str, str), 
     ("t_delim", r"[\[\]{}()^]", identity, identity, str),
     ("t_string", r'''"(?:\\.|[^\\"])*"''', identity, identity, str),
-    ("t_symbol", r"""[^\s\[\]{}('"`,;)]*""", symbol, None, symbol),
+    ("t_symbol", r"""[^\s\[\]{}('"`,;)]*""", symbol, str, symbol),
 )
 
 TOKEN_RE = re.compile("|".join(r"(?P<%s>%s)" % t[0:2] for t in SYNTAX_TABLE), re.VERBOSE)
