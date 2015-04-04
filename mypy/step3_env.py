@@ -37,9 +37,10 @@ def EVAL(ast, environment):
             args = [EVAL(arg, environment) for arg in ast[1:]]
             return fn(args)
     elif ast and type(ast) == dict:
-        return dict((EVAL(k, env), EVAL(v, env)) for (k, v) in ast.items())
+        return dict((EVAL(k, environment),
+                     EVAL(v, environment)) for (k, v) in ast.items())
     elif ast and type(ast) == tuple:
-        return tuple(EVAL(i, env) for i in ast)
+        return tuple(EVAL(i, environment) for i in ast)
     elif ast and type(ast) == syntax.symbol:
         return env.get(environment, ast.value)
     else:
